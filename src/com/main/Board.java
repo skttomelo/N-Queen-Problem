@@ -1,5 +1,6 @@
 package com.main;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Board {
@@ -7,22 +8,21 @@ public class Board {
 	private int N = 0;
 	
 	//we generate our board with N-queens
-	public Board(int n) {
+	public Board(int[][] board, int n) {
 		N = n;
-		
-		Random r = new Random();
-		int current_row = 0;
-		
-		board = new int[N][N]; // our board will be 8x8
-		for(int col = 0; col<N; col++) { // col : also known as the x-axis
-			current_row = r.nextInt(N); // pick psuedo-random spot for the queen to be placed
-    		for(int row = 0; row<N; row++) { // row : also known as the y-axis
-    			// we make all spaces on the board 0 to indicate nothing is there and 1 later on to say there is a queen
-    			if(current_row == row) board[col][row] = 1;
-    			else board[col][row] = 0;        			
-    		}
-    	}
+		this.board = board;
 	}
+	
+	// we generate all possible queen moves based off the current board in relation to N=8,
+	// there will be 8*7 successors or 56 possible successors to the current board to be exact
+	public ArrayList<Board> getNeighbors(){
+		ArrayList<Board> neighbors = new ArrayList<Board>();
+		
+		
+		
+		return neighbors;
+	}
+	
 	
 	// grabs queen row in given col
 	private int getQueenRow(int x) {
@@ -52,6 +52,12 @@ public class Board {
 		}
 		
 		return score;
+	}
+	
+	// compare's current board to target solution to see if the target board has a higher score
+	// the higher score indicates that we are at our peak/plateau
+	public boolean isPeakOrPlateau(Board solution) {
+		return solution.getScore() >= getScore();
 	}
 	
 	public String toString() {

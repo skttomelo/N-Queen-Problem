@@ -1,6 +1,7 @@
 package com.main;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Driver {
 	
@@ -8,9 +9,30 @@ public class Driver {
 		ArrayList<Board> boards = new ArrayList<Board>(); // will hold all of our boards we will be looking at
 		
 		for(int i = 0; i<size; i++) {
-    		boards.add(new Board(n));
+    		boards.add(new Board(makeRandBoard(n), n));
         }
 		return boards;
+	}
+	
+	private static int[][] makeRandBoard(int N){
+		Random r = new Random();
+		int current_row = 0;
+		
+		int[][] board = new int[N][N]; // our board will be 8x8
+		for(int col = 0; col<N; col++) { // col : also known as the x-axis
+			current_row = r.nextInt(N); // pick psuedo-random spot for the queen to be placed
+    		for(int row = 0; row<N; row++) { // row : also known as the y-axis
+    			// we make all spaces on the board 0 to indicate nothing is there and 1 later on to say there is a queen
+    			if(current_row == row) board[col][row] = 1;
+    			else board[col][row] = 0;        			
+    		}
+    	}
+		
+		return board;
+	}
+	
+	static void HillClimb(Board b) {
+		
 	}
 	
     public static void main(String[] args) {
