@@ -18,7 +18,19 @@ public class Board {
 	public ArrayList<Board> getNeighbors(){
 		ArrayList<Board> neighbors = new ArrayList<Board>();
 		
-		
+		// x = col; y = row
+		for(int x = 0; x<N; x++) {
+			int curr_queen_row = getQueenRow(x);
+			for(int y = 0; y<N; y++) {
+				// if we are at the current queen's location we pass to the next loop through so as to not generate duplicate states
+				if(y == curr_queen_row) continue;
+				
+				int[][] neighbor = board;
+				neighbor[x][y] = 1;
+				neighbor[x][curr_queen_row] = 0;
+				neighbors.add(new Board(neighbor, N));
+			}
+		}
 		
 		return neighbors;
 	}
