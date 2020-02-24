@@ -31,6 +31,7 @@ public class Board {
 						neighbor[i][v] = board[i][v];
 					}
 				}
+				
 				neighbor[x][y] = 1;
 				neighbor[x][curr_queen_row] = 0;
 				neighbors.add(new Board(neighbor, N));

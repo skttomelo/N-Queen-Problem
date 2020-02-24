@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Driver {
+
+	// Here are the links to github repos that I have used aside from reading the book
+	// to further my understanding of the hill climbing (and rand restart) so that I
+	// may implement the algorithms into  my code for the N-Queen Problem
+	// The books 'code' based off the link provided in the homework: https://github.com/aimacode/aima-python/blob/master/search.py
+	// search.py was the only thing I looked at to gather my most basic understanding of how I might implement this program
+	// and the other link falls here: https://github.com/JKnighten/hill-climbing/blob/master/src/main/java/com/knighten/ai/hillclimb/nqueens/NQueensProblem.java
+	// I looked at other things within this repo, but more or less between the book and I saw here I developed my understanding of 
+	// the homework at hand
 	
 	public ArrayList<Board> gen_boards(int n, int size){
 		ArrayList<Board> boards = new ArrayList<Board>(); // will hold all of our boards we will be looking at
