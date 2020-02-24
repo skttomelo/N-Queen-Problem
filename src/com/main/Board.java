@@ -25,7 +25,12 @@ public class Board {
 				// if we are at the current queen's location we pass to the next loop through so as to not generate duplicate states
 				if(y == curr_queen_row) continue;
 				
-				int[][] neighbor = board;
+				int[][] neighbor = new int[N][N];
+				for(int i = 0; i<board.length; i++) {
+					for(int v = 0; v<board.length;v++) {
+						neighbor[i][v] = board[i][v];
+					}
+				}
 				neighbor[x][y] = 1;
 				neighbor[x][curr_queen_row] = 0;
 				neighbors.add(new Board(neighbor, N));
