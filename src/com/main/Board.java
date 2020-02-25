@@ -78,6 +78,7 @@ public class Board {
 		return solution.getScore() >= getScore();
 	}
 	
+	
 	public String toString() {
 		String data = "";
 		data += "-----------------\n";
