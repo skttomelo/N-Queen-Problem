@@ -50,6 +50,11 @@ public class Board {
 		return -1; // will never return -1 because the board will always have a queen on each column
 	}
 	
+	// returns N
+	public int getN() {
+		return N;
+	}
+	
 	// to determine the score we check the number of collisions there are amongst the queens on the board
 	public int getScore() {
 		int score = 0;

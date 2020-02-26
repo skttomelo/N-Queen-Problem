@@ -59,36 +59,85 @@ public class Driver {
 		return initial;
 	}
 	
+	public Board HillClimbRandRestart(Board b) {
+		Board initial = b;
+		while(initial.getScore() != 0) {
+			// loop through all neighbors and find the best scoring one
+			Board current_guess = initial;
+			for(Board neighbor : initial.getNeighbors()) {
+				if(neighbor.getScore() < initial.getScore()) current_guess = neighbor;
+			}
+			
+			//check if solution is peak or plateau
+			if(initial.isPeakOrPlateau(current_guess)) initial = new Board(makeRandBoard(b.getN()), b.getN());
+			else initial = current_guess;
+		}
+		
+		return initial;
+	}
+	
     public static void main(String[] args) {
     	Driver d = new Driver();
-    	ArrayList<Board> boards = d.gen_boards(8, 100000); // we create the boards we will be evaluating
+    	final int sample_size = 100000;
+    	ArrayList<Board> boards = d.gen_boards(8, sample_size); // we create the boards we will be evaluating
     	
     	int highest_score_board = 0;
+    	double avg_score = 0;
+    	double success_rate = 0;
     	double hc_avg_score = 0; // will hold all scores from hill climb and avg them
     	double hc_success_rate = 0; // hill climb success rate
+    	double hcrr_avg_score = 0;
+    	double hcrr_success_rate = 0;
+    	
+    	//variables for tracking time in milli
+    	long start = 0, end = start, hc_time = start, hcrr_time = start;
+    	
     	for(Board board : boards) { // loop through all boards and show them in console
     		
     		// for shits and giggles we will find the highest scoring board in the randomly generated boards
     		if(board.getScore() > highest_score_board) highest_score_board = board.getScore();
     		
-//    		System.out.println("The score of this board is: "+board.getScore());
-//    		System.out.println(board.toString());
-//    		
-    		Board b = d.HillClimb(board);
-//    		System.out.println("Solution:\nFinal board score is "+b.getScore());
-//    		System.out.println(b.toString());
-    		hc_avg_score += b.getScore();
-    		if(b.getScore() == 0) hc_success_rate++;
+    		start = System.nanoTime();
+    		Board hill_climb = d.HillClimb(board);
+    		end = System.nanoTime();
+    		hc_time = end-start;
+    		
+    		start = System.nanoTime();
+    		Board hill_climb_rand_restart = d.HillClimbRandRestart(board);
+    		end = System.nanoTime();
+    		hcrr_time = end-start;
+    		
+    		avg_score += board.getScore();
+    		if(board.getScore() == 0) success_rate++;
+    		
+    		hc_avg_score += hill_climb.getScore();
+    		if(hill_climb.getScore() == 0) hc_success_rate++;
+    		
+    		hcrr_avg_score += hill_climb_rand_restart.getScore();
+    		if(hill_climb_rand_restart.getScore() == 0) hcrr_success_rate++;
     	}
     	
-    	System.out.println("the highest score of all the boards was "+highest_score_board);
+//    	System.out.println("the highest score of all the boards was "+highest_score_board);
     	
     	// calculate avg's and success rate
-    	hc_avg_score = hc_avg_score/boards.size();
-    	hc_success_rate = (hc_success_rate/boards.size())*100;
+    	int board_size = boards.size();
     	
+    	avg_score = avg_score/board_size;
+    	success_rate = (success_rate/board_size)*100;
+    	hc_avg_score = hc_avg_score/board_size;
+    	hc_success_rate = (hc_success_rate/board_size)*100;
+    	hcrr_avg_score = hcrr_avg_score/board_size;
+    	hcrr_success_rate = (hcrr_success_rate/board_size)*100;
+    	
+    	System.out.println("The Sample Size for this program is: "+sample_size);
+    	System.out.println("The avg score of all boards before Hill Climb and Hill Climb Rand Restart: "+avg_score);
+    	System.out.println("The success rate of all the boards before Hill Climb and Hill Climb Rand Restart: "+success_rate+"%");
     	System.out.println("The avg score of all boards after Hill Climb: "+hc_avg_score);
     	System.out.println("The success rate of all the boards after Hill Climb: "+hc_success_rate+"%");
+    	System.out.println("Hill Climb runtime (nanoseconds): "+hc_time);
+    	System.out.println("The avg score of all boards after Hill Climb Rand Restart: "+hcrr_avg_score);
+    	System.out.println("The success rate of all the boards after Hill Climb Rand Restart: "+hcrr_success_rate+"%");
+    	System.out.println("Hill Climb Rand Restart runtime (nanoseconds): "+hcrr_time);
     	
     }
 }
