@@ -147,7 +147,7 @@ public class Driver {
         	System.out.println("The avg score of all boards after Hill Climb Rand Restart: "+hcrr_avg_score);
         	System.out.println("The success rate of all the boards after Hill Climb Rand Restart: "+hcrr_success_rate+"%");
         	System.out.println("Hill Climb Rand Restart runtime Total Time (nanoseconds): "+hcrr_time);
-        	System.out.println("\n\n");
+        	System.out.println("\n---------------------------------------------------------------------------------\n");
     	}
     	
     }
