@@ -61,7 +61,7 @@ public class Driver {
 	
     public static void main(String[] args) {
     	Driver d = new Driver();
-    	ArrayList<Board> boards = d.gen_boards(8, 100000); // we create the boards we will be evaluating
+    	ArrayList<Board> boards = d.gen_boards(8, 1000); // we create the boards we will be evaluating
     	
     	int highest_score_board = 0;
     	double hc_avg_score = 0; // will hold all scores from hill climb and avg them
